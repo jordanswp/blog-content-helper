@@ -1,6 +1,7 @@
 const submitButton = document.querySelector(".submit-button");
 const inputField = document.querySelector(".input--text-area");
 const outputField = document.querySelector(".output--text-area");
+const outputhtml = document.querySelector(".output-html");
 
 const message = document.querySelector(".message");
 
@@ -26,7 +27,10 @@ submitButton.addEventListener("click", function () {
         // console.log(line);
       }
     });
+
+    // output success message
     message.classList.remove("hide");
+
     return line;
   });
 
@@ -36,4 +40,7 @@ submitButton.addEventListener("click", function () {
 
   // output cleaned content
   outputField.value = cleanContentJoined;
+
+  // output the HTML
+  outputhtml.innerHTML = cleanContentJoined;
 });
