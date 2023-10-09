@@ -2,13 +2,15 @@ const submitButton = document.querySelector(".submit-button");
 const inputField = document.querySelector(".input--text-area");
 const outputField = document.querySelector(".output--text-area");
 
+const message = document.querySelector(".message");
+
 submitButton.addEventListener("click", function () {
   let uncleanContent = inputField.value;
   // clean content
   splitContent = uncleanContent.split(/\r?\n/);
-  console.log(splitContent);
+  // console.log(splitContent);
 
-  const headers = ["H1", "H2", "H3", "H4"];
+  const headers = ["H1", "H2", "H3", "H4", "H5"];
 
   let cleanedContent = splitContent.map((line) => {
     headers.some((header) => {
@@ -24,6 +26,7 @@ submitButton.addEventListener("click", function () {
         // console.log(line);
       }
     });
+    message.classList.remove("hide");
     return line;
   });
 
@@ -33,30 +36,4 @@ submitButton.addEventListener("click", function () {
 
   // output cleaned content
   outputField.value = cleanContentJoined;
-
-  // console.log(splitContent);
-
-  // splitContent.forEach((line) => {
-  //   headers.some((header) => {
-  //     // check if line contains H1, H2, H3 or H4
-  //     if (line.includes(header)) {
-  //       console.log(line);
-  //       // replace p tag with opening header tag and remove the header text
-  //       line = line
-  //         .replace(/<strong>/g, "")
-  //         .replace(/<\/strong>/g, "")
-  //         .replace("<p>", `<${header.toLowerCase()}><strong>`)
-  //         .replace("</p>", `</strong></${header.toLowerCase()}>`);
-  //     }
-  //     return line;
-  //   });
-  //   return line;
-  // });
-
-  // console.log(cleanedContent);
-
-  // cleanContentJoined = cleanedContent.join("\r\n");
-
-  // output cleaned content
-  // outputField.value = cleanContentJoined;
 });
