@@ -55,3 +55,7 @@ copyButton.addEventListener("click", () => {
   // edit button text
   copyButton.textContent = "Copied to clipboard!";
 });
+
+window.addEventListener("load", () => {
+  inputField.focus();
+});
