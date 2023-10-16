@@ -2,8 +2,10 @@ const submitButton = document.querySelector(".submit-button");
 const inputField = document.querySelector(".input--text-area");
 const outputField = document.querySelector(".output--text-area");
 const outputhtml = document.querySelector(".output-html");
+const clearButton = document.querySelector(".clear-button");
 
 const message = document.querySelector(".message");
+const copyButton = document.querySelector(".copy-button");
 
 submitButton.addEventListener("click", function () {
   let uncleanContent = inputField.value;
@@ -43,4 +45,27 @@ submitButton.addEventListener("click", function () {
 
   // output the HTML
   outputhtml.innerHTML = cleanContentJoined;
+});
+
+copyButton.addEventListener("click", () => {
+  let cleanedContent = outputField.value;
+
+  // copy output content to clipboard
+  navigator.clipboard.writeText(cleanedContent);
+
+  // edit button text
+  copyButton.textContent = "Copied to clipboard!";
+});
+
+// focus on input field when window loads
+window.addEventListener("load", () => {
+  inputField.focus();
+});
+
+// clear input and output fields
+clearButton.addEventListener("click", () => {
+  inputField.value = "";
+  outputField.value = "";
+  message.classList.add("hide");
+  outputhtml.innerHTML = "";
 });
