@@ -9,24 +9,32 @@ const copyButton = document.querySelector(".copy-button");
 
 submitButton.addEventListener("click", function () {
   let uncleanContent = inputField.value;
-  // clean content
+
+  // split content into lines
   splitContent = uncleanContent.split(/\r?\n/);
-  // console.log(splitContent);
 
   const headers = ["H1", "H2", "H3", "H4", "H5"];
 
   let cleanedContent = splitContent.map((line) => {
     headers.some((header) => {
       if (line.includes(header)) {
-        // console.log(`${line} contains ${header}`);
-        line = line
-          .replace(/<strong>/g, "")
-          .replace(/<\/strong>/g, "")
-          .replace(`${header} `, "")
-          .replace("<p>", `<${header.toLowerCase()}><strong>`)
-          .replace("</p>", `</strong></${header.toLowerCase()}>`);
-
-        // console.log(line);
+        // if the line is a header but has <p> tag
+        if (line.includes("<p>")) {
+          line = line
+            .replace(/<strong>/g, "") // remove all <strong>
+            .replace(/<\/strong>/g, "") // remove all </strong>
+            .replace(`${header} `, "") // remove H2, H3, H4, etc.
+            .replace("<p>", `<${header.toLowerCase()}><strong>`)
+            .replace("</p>", `</strong></${header.toLowerCase()}>`);
+        } else {
+          // if line is a header and already has header tag
+          line = line
+            .replace(/(<[a-z0-9]{1,}>)/g, "") // remove all <>
+            .replace(/(<\/[a-z0-9]{1,}>)/g, "") // remove all </>
+            .replace(`${header} `, "");
+          line = `<${header.toLowerCase()}><strong>` + line;
+          line += `</strong></${header.toLowerCase()}>`;
+        }
       }
     });
 
@@ -35,8 +43,6 @@ submitButton.addEventListener("click", function () {
 
     return line;
   });
-
-  // console.log(cleanedContent);
 
   cleanContentJoined = cleanedContent.join("\r\n");
 
